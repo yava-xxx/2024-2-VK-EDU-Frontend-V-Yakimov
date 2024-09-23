@@ -13,8 +13,8 @@
  */
 
 export default function convertBytesToHuman(bytes) {
-  if (typeof bytes !== 'number' || bytes < 0) {
-    return 'Error';
+  if (typeof bytes !== 'number' || bytes < 0 || isNaN(bytes)) {
+    return false;
   }
 
   let size = bytes, unitIndex = 0;

@@ -10,18 +10,19 @@
 import convertBytesToHuman from './convertBytesToHuman';
 
 test('Возвращает false для неправильного типа данных', () => {
-  expect(convertBytesToHuman('1')).toBe('Error');
-  expect(convertBytesToHuman('string')).toBe('Error');
-  expect(convertBytesToHuman(null)).toBe('Error');
-  expect(convertBytesToHuman(undefined)).toBe('Error');
-  expect(convertBytesToHuman(true)).toBe('Error');
-  expect(convertBytesToHuman(false)).toBe('Error');
-  expect(convertBytesToHuman({})).toBe('Error');
-  expect(convertBytesToHuman([])).toBe('Error');
-  expect(convertBytesToHuman(-1)).toBe('Error');
+  expect(convertBytesToHuman('1')).toBe(false);
+  expect(convertBytesToHuman('string')).toBe(false);
+  expect(convertBytesToHuman(null)).toBe(false);
+  expect(convertBytesToHuman(undefined)).toBe(false);
+  expect(convertBytesToHuman(true)).toBe(false);
+  expect(convertBytesToHuman(false)).toBe(false);
+  expect(convertBytesToHuman({})).toBe(false);
+  expect(convertBytesToHuman([])).toBe(false);
+  expect(convertBytesToHuman(-1)).toBe(false);
   expect(convertBytesToHuman(-1)).not.toBe("1 B")
-  expect(convertBytesToHuman(-1024)).toBe('Error');
-  expect(convertBytesToHuman(-1048576)).toBe('Error');
+  expect(convertBytesToHuman(-1024)).toBe(false);
+  expect(convertBytesToHuman(-1048576)).toBe(false);
+  expect(convertBytesToHuman(NaN)).toBe(false);
 });
 
 test('Возвращает корректное значение для чисел', () => {
