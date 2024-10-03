@@ -1,0 +1,271 @@
+:root {
+    --primary-color: #FFC0CB; /* Розовый фон для формы ввода */
+    --secondary-color: #1E1E1E; /* Темно-серый фон чата */
+    --accent-color: #FF69B4; /* Ярко-розовый цвет для кнопки */
+    --background-color: #121212; /* Темно-серый фон */
+    --scrollbar-color: #ccc; /*Для скроллинга*/
+}
+
+body.chat-body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--background-color);
+}
+
+.chat {
+    border-radius: 15px;
+    width: 100%;
+    max-width: 600px;
+    border: none;
+    background-color: var(--secondary-color);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+
+.messages {
+    list-style: none;
+    padding: 20px;
+    height: calc(100vh - 70px);
+    overflow-y: auto;
+    background-color: var(--secondary-color);
+}
+
+.messages::-webkit-scrollbar {
+    width: 5px; /* set scrollbar width */
+}
+
+.messages::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-color);
+    border-radius: 10px;
+}
+
+.message-form {
+    border-radius: 15px;
+    display: flex;
+    width: 100%;
+    background-color: var(--primary-color);
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.message-form textarea {
+    height: 5vh;
+    transition: height 0.2s ease;
+    border-radius: 10px;
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    box-sizing: border-box;
+    margin-right: 10px;
+    overflow-y: hidden;
+    max-height: 100px;
+    resize: none;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    white-space: pre-wrap;
+    align-self: center;
+}
+
+.message-form textarea::-webkit-scrollbar {
+    width: 5px;
+}
+
+.message-form textarea::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-color);
+    border-radius: 10px;
+}
+
+.message-form button {
+    border-radius: 10px;
+    padding: 10px 20px;
+    background-color: var(--accent-color);
+    color: #000000;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.message-form button:hover {
+    background-color: #FF1493;
+}
+
+.message.sent, .message.received {
+    color: var(--secondary-color);
+    width: fit-content;
+    max-width: 70%;
+    word-break: break-word;
+    text-align: left;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    padding: 5px 10px 1px;
+}
+
+.message.sent {
+    background-color: #FFB6C1;
+    margin-left: auto;
+}
+
+.message.received {
+    background-color: #FFE4E1;
+    margin-right: auto;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.message {
+    transition: transform 0.5s;
+    animation: fadeIn 0.5s ease;
+    position: relative;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-right: 25px;
+    flex-direction: column;
+}
+
+.message.destroy {
+    transform: scale(0);
+}
+
+.partner-info {
+    display: flex;
+    align-items: center;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    height: 5vh;
+    padding: 10px;
+    background-color: var(--primary-color);
+    border-bottom: 1px solid #333;
+}
+
+.partner-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--scrollbar-color);
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.partner-name {
+    display: inline-block;
+    width: 20%;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+.partner-actions {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.message-status-icon {
+    transform: scale(0.7);
+    position: absolute;
+    bottom: -5px;
+    right: -21px;
+    color: #FF1493;
+}
+
+.partner-actions button {
+    cursor: pointer;
+    background-color: transparent;
+    padding: 0;
+    border: none;
+}
+
+.partner-actions button:hover {
+    border-radius: 10px;
+    background-color: #ff9dab;
+}
+
+.message .timestamp {
+    font-size: 0.7em;
+    color: #666;
+    margin-bottom: 0;
+    display: block;
+    padding: 0 3px;
+}
+
+.message .delete-button {
+    position: absolute;
+    top: 0;
+    margin: 0 10px;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: none;
+}
+
+.message:hover .delete-button {
+    right: -27px;
+    display: block; /* Show the button on hover */
+}
+
+.message .delete-button i.material-icons {
+    font-size: 18px;
+    color: #FF1493;
+}
+
+.message-form .attach-button {
+    background: transparent;
+    margin-right: 10px;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 20px;
+    border-style: none;
+}
+
+.message-form .attach-button i.material-icons {
+    background: transparent;
+    font-size: 20px;
+    color: var(--secondary-color);
+}
+
+.message-form .attach-button:hover {
+    border-radius: 10px;
+    background-color: #ff9dab;
+}
+
+.sender-name {
+    font-size: 0.8em;
+    color: #FF1493;
+    margin-bottom: 3px;
+}
+
+.message.sent .sender-name {
+    margin-left: auto;
+    padding-right: 5px;
+    text-align: right;
+}
+
+.message.received .sender-name {
+    margin-right: auto;
+    padding-left: 5px;
+    text-align: left;
+}
