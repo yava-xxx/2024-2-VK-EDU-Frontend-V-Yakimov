@@ -1,12 +1,14 @@
-export default {
-    root: 'src',
-    base: '/2024-2-VK-EDU-Frontend-V-Yakimov/',
-    server: {
-        port: 3000
-    },
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+export default defineConfig({
+    plugins: [vue()],
     build: {
         outDir: 'dist',
-        emptyOutDir: true,
-    }
-
-}
+    },
+    server: {
+        port: 3000,
+        open: true,
+    },
+    root: './src',
+    base: './',
+});

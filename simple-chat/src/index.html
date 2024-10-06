@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body class="chat-body">
-<div class="chat">
+<header class="header">
     <div class="partner-info">
         <div class="partner-avatar"></div>
         <div class="partner-name">Иван Иванов</div>
@@ -21,7 +21,11 @@
             </button>
         </div>
     </div>
-    <div id="messages" class="messages"></div>
+</header>
+<main class="main">
+    <ul id="messages" class="messages"></ul>
+</main>
+<footer class="footer">
     <form id="messageForm" class="message-form">
         <button id="btn1" class="attach-button" type="button">
             <i class="material-icons">attach_file</i>
@@ -31,7 +35,7 @@
             <i class="material-icons">send</i>
         </button>
     </form>
-</div>
+</footer>
 <script src="index.js" type="module"></script>
 </body>
 </html>

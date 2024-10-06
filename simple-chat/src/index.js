@@ -1,65 +1,113 @@
+import { defaultMessages } from './defaultMessages.js';
+
 document.addEventListener('DOMContentLoaded', function () {
     const messages = document.getElementById('messages');
     const messageForm = document.getElementById('messageForm');
     const messageInput = document.getElementById('messageInput');
 
-    function saveMessagesToLocalStorage() {
-        const messages = document.querySelectorAll('.message');
-        let messagesArray = [];
+    const addMessage = (message, sentOrReceived, status) => {
+        const messageData = {
+            id: generateUniqueId(),
+            text: message,
+            sentOrReceived: sentOrReceived,
+            status: status,
+            timestamp: new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}),
+            senderName: sentOrReceived === 'sent' ? 'Вы' : 'Иван Иванов'
+        };
 
-        messages.forEach((message) => {
-            const messageObject = {
-                id: message.id,
-                senderName: message.querySelector('.sender-name').textContent,
-                text: message.querySelector('.message-text').innerHTML,
-                timestamp: message.querySelector('.timestamp').textContent,
-                status: message.querySelector('.message-status-icon').textContent,
-                sentOrReceived: message.classList.contains('sent') ? 'sent' : 'received'
-            };
-            messagesArray.push(messageObject);
+        const addMessageToChat = () => {
+            const messageElement = createMessageElement(messageData);
+            messages.appendChild(messageElement);
+            messages.scrollTop = messages.scrollHeight;
+        };
+
+        const saveMessageToLocalStorage = () => {
+            const storedMessages = localStorage.getItem('messages');
+            const messagesArray = storedMessages ? JSON.parse(storedMessages) : [];
+            messagesArray.push(messageData);
+            localStorage.setItem('messages', JSON.stringify(messagesArray));
+        };
+
+        addMessageToChat();
+        saveMessageToLocalStorage();
+    };
+
+    const deleteMessage = (id) => {
+        const messageElement = document.getElementById(id);
+        messageElement.classList.add('destroy');
+        setTimeout(() => {
+            messageElement.remove();
+
+            const messages = document.querySelectorAll('.message');
+            const messagesArray = [];
+
+            messages.forEach((message) => {
+                const messageObject = {
+                    id: message.id,
+                    senderName: message.querySelector('.sender-name').textContent,
+                    text: message.querySelector('.message-text').innerHTML,
+                    timestamp: message.querySelector('.timestamp').textContent,
+                    status: message.querySelector('.message-status-icon').textContent,
+                    sentOrReceived: message.classList.contains('sent') ? 'sent' : 'received'
+                };
+                messagesArray.push(messageObject);
+            });
+
+            localStorage.setItem('messages', JSON.stringify(messagesArray));
+        }, 500);
+    };
+
+
+
+    const loadMessagesFromLocalStorage = () => {
+        const messagesArray = parseMessages(getMessageStorage());
+        messagesArray.push(...defaultMessages);
+        messages.innerHTML = '';
+
+        messagesArray.forEach((message) => {
+            addMessage(message.text, message.sentOrReceived, message.status);
         });
-        const storedMessages = localStorage.getItem('messages');
-        if (storedMessages) {
-            const oldMessagesArray = JSON.parse(storedMessages);
-            oldMessagesArray.forEach((oldMessage) => {
-                let newMessage = messagesArray.find((newMessage) => newMessage.id === oldMessage.id);
-                if (!newMessage) {
-                    messagesArray = messagesArray.filter((message) => message.id !== oldMessage.id);
-                }
-            });
-        }
-        const ids = messagesArray.map((message) => message.id);
-        if (ids.length !== new Set(ids).size) {
-            messagesArray = messagesArray.map((message, index) => {
-                if (ids.indexOf(message.id) !== index) {
-                    message.id = generateUniqueId();
-                }
-                return message;
-            });
-        }
-        localStorage.setItem('messages', JSON.stringify(messagesArray));
-    }
 
-    function generateUniqueId() {
+        messages.scrollTop = messages.scrollHeight;
+
+        localStorage.setItem('messages', JSON.stringify(messagesArray));
+    };
+
+
+    const getMessageStorage = () => {
+        const storedMessages = localStorage.getItem('messages');
+        return storedMessages ? JSON.parse(storedMessages) : [];
+    };
+
+    const parseMessages = (messages) => {
+        return messages.map((message) => ({
+            id: message.id,
+            senderName: message.senderName,
+            text: message.text,
+            timestamp: message.timestamp,
+            status: message.status,
+            sentOrReceived: message.sentOrReceived,
+        }));
+    };
+
+    const generateUniqueId = () => {
         return Math.floor(Math.random() * 1000000).toString();
     }
 
-    function sendMessage(messageInput) {
+    const sendMessage = (messageInput) => {
         const message = messageInput.value.trim().replace(/</g,"&lt;").replace(/^\s*\n+|\n+\s*$/g, '').replace(/\n+/g, '\n');
-        if (message) {
-            addMessageToChat(message, 'sent', 'read');
-            messageInput.value = '';
-            messageInput.style.height = '5vh';
-            messageInput.style.overflowY = 'hidden';
-            messageInput.setSelectionRange(0, 0);
-            saveMessagesToLocalStorage();
-        } else {
-            alert('Сообщение не может быть пустым!');
+        if (!message) {
+            return;
         }
+        addMessage(message, 'sent', 'read');
+        messageInput.value = '';
+        messageInput.style.height = '5vh';
+        messageInput.style.overflowY = 'hidden';
+        messageInput.setSelectionRange(0, 0);
     }
 
-    function createMessageElement(message) {
-        const messageElement = document.createElement('div');
+    const createMessageElement =(message) =>{
+        const messageElement = document.createElement('li');
         messageElement.id = message.id;
         messageElement.classList.add('message', message.sentOrReceived);
 
@@ -96,118 +144,41 @@ document.addEventListener('DOMContentLoaded', function () {
             deleteButton.style.display = 'none';
         } else {
             deleteButton.addEventListener('click', () => {
-                messageElement.classList.add('destroy');
-                setTimeout(() => {
-                    messageElement.remove();
-                    saveMessagesToLocalStorage();
-                }, 500);
+                deleteMessage(message.id);
             });
         }
         return messageElement;
     }
 
-    function loadMessagesFromLocalStorage() {
-        const storedMessages = localStorage.getItem('messages');
-        const defaultMessages = [
-            {
-                id: 1,
-                text: 'Привет! Как дела???',
-                sentOrReceived: 'received',
-                status: '',
-                timestamp: '10:00',
-                senderName: 'Иван Иванов',
-                isDefault: true
-            },
-            {
-                id: 0,
-                text: 'Ты сделал домашку по VK Frontend?????',
-                sentOrReceived: 'received',
-                status: '',
-                timestamp: '10:05',
-                senderName: 'Иван Иванов',
-                isDefault: true
-            }
-        ];
-        const defaultMessagesAdded = localStorage.getItem('defaultMessagesAdded');
-
-        let messagesArray = storedMessages ? JSON.parse(storedMessages) : [];
-
-        if (!defaultMessagesAdded) {
-            const messageIdExists = (id) => messagesArray.some((message) => message.id === id);
-            defaultMessages.forEach((defaultMessage) => {
-                if (!messageIdExists(defaultMessage.id)) {
-                    messagesArray.push(defaultMessage);
-                }
-            });
-            localStorage.setItem('defaultMessagesAdded', 'true');
-        }
-
-        messages.innerHTML = '';
-
-        messagesArray.forEach((message) => {
-            const messageElement = createMessageElement(message);
-            messages.appendChild(messageElement);
-        });
-
-        localStorage.setItem('messages', JSON.stringify(messagesArray));
-    }
-
     loadMessagesFromLocalStorage();
 
-    messageForm.addEventListener('submit', function (e) {
+    messageForm.addEventListener('submit', (e) => {
         e.preventDefault();
         sendMessage(messageInput);
+        messageInput.dispatchEvent(new Event('input'));
+        messageInput.scrollTop = messageInput.scrollHeight
     });
 
-    messageInput.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' && !e.shiftKey) {
+    messageInput.addEventListener ('keydown', (e) => {
+        if (e.key === 'Enter') {
             e.preventDefault();
-            sendMessage(messageInput);
-        } else if (e.key === 'Enter' && e.shiftKey) {
-            messageInput.value = messageInput.value.slice(0, messageInput.selectionStart) + '\n';
-            e.preventDefault();
-            messageInput.dispatchEvent(new Event('input'));
-        }
-    });
-
-    messageInput.addEventListener('input', function () {
-        const textarea = this;
-        const twoLineHeight = 5;
-        const messagesContainer = document.getElementById('messages');
-
-        if (textarea.value.trim() !== '') {
-            if (textarea.scrollHeight > twoLineHeight) {
-                textarea.style.height = textarea.scrollHeight + 'px';
-                textarea.style.overflowY = 'auto';
+            if (e.shiftKey) {
+                const cursorPos = messageInput.selectionStart;
+                messageInput.value = messageInput.value.slice(0, cursorPos) + '\n' + messageInput.value.slice(cursorPos);
+                messageInput.selectionStart = messageInput.selectionEnd = cursorPos + 1;
             } else {
-                textarea.style.height = twoLineHeight + 'vh';
-                textarea.style.overflowY = 'hidden';
+                sendMessage(messageInput);
             }
-        } else {
-            textarea.style.height = '5vh';
-            textarea.style.overflowY = 'hidden';
-            textarea.setSelectionRange(0, 0);
-        }
-        textarea.style.height = 'auto';
-        textarea.style.height = textarea.scrollHeight + 'px';
-
-        const lastMessage = messagesContainer.lastChild;
-        if (lastMessage && lastMessage.offsetTop + lastMessage.offsetHeight > messagesContainer.scrollTop + messagesContainer.offsetHeight) {
-            messagesContainer.scrollTop = lastMessage.offsetTop + lastMessage.offsetHeight - messagesContainer.offsetHeight - 50;
-
+            messageInput.dispatchEvent(new Event('input'));
+            messageInput.scrollTop = messageInput.scrollHeight
         }
     });
 
-    function addMessageToChat(message, sentOrReceived, status) {
-        const messageElement = createMessageElement({
-            id: generateUniqueId(),
-            text: message,
-            sentOrReceived: sentOrReceived,
-            status: status,
-            timestamp: new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}),
-            senderName: sentOrReceived === 'sent' ? 'Вы' : 'Иван Иванов'
-        });
-        messages.appendChild(messageElement);
-        messages.scrollTop = messages.scrollHeight;
-    }
+    messageInput.addEventListener ('input', () => {
+        const textarea = messageInput;
+        textarea.style.height = 'auto';
+        textarea.style.minHeight = '5vh';
+        textarea.style.height = textarea.scrollHeight + 'px';
+        textarea.style.overflowY = "auto"
+    });
 });
