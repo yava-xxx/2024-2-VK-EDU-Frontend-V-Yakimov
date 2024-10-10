@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Сообщения</title>
+    <link href="messenger.scss" rel="stylesheet">
+    <link href="new_chat.scss" rel="stylesheet">
+    <link rel="icon" href="../image/message.png"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="messenger-body">
+<header class="header">
+    <div class="header-title">Сообщения</div>
+    <button type="button" class="search-button">
+        <i class="material-icons">search</i>
+    </button>
+</header>
+<main class="main">
+    <div class="chats-container">
+        <ul id="chats" class="chats"></ul>
+    </div>
+    <div class="chat-page" id="chat-page"></div>
+</main>
+<footer class="footer">
+    <button type="button" class="new-chat-button">
+        <i class="material-icons">draw</i>
+    </button>
+    <button type="button" class="scroll-to-top-button">
+        <i class="material-icons">keyboard_control_key</i>
+    </button>
+</footer>
+<script src="messenger.js" type="module"></script>
+<script src="new_chat.js" type="module"></script>
+</body>
+</html>
