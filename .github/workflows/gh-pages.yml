@@ -12,10 +12,10 @@ jobs:
         with:
           node-version: '20'
       - name: Install npm deps
-        working-directory: ./simple-chat
+        working-directory: ./chat_dz3
         run: npm i
       - name: Build app
-        working-directory: ./simple-chat
+        working-directory: ./chat_dz3
         run: npm run build
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
