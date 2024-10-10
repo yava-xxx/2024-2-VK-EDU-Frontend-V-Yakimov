@@ -1,0 +1,112 @@
+@import "../colors";
+
+@media (min-width: 1400px) {
+  .new-chat-menu{
+    position: fixed;
+    bottom: 15px;
+    left: 30%;
+    max-width: 250px;
+  }
+}
+
+.new-chat-menu {
+  height: 180px;
+  position: absolute;
+  bottom: 15px;
+  right: 90px;
+  background-color: $primary-color;
+  padding: 10px;
+  border-radius: 15px;
+  overflow-y: hidden;
+}
+
+.new-chat-menu input[type="text"] {
+  margin-bottom: 10px;
+  width: 90%;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 15px;
+  background-color: $secondary-color;
+  color: $scrollbar-color;
+
+  &::placeholder {
+    color: $scrollbar-color;
+  }
+}
+
+.new-chat-menu .user-select {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.new-chat-menu .user-select-input {
+  width: 90%;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 15px;
+  background-color: $secondary-color;
+  color: $scrollbar-color;
+  cursor: pointer;
+}
+
+.new-chat-menu ul {
+  max-height: 100px;
+  overflow-y: auto;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: $secondary-color;
+  color: $scrollbar-color;
+  border-radius: 10px;
+  display: none;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $scrollbar-color;
+    border-radius: 10px;
+  }
+}
+
+.new-chat-menu ul.show {
+  display: block;
+}
+
+.new-chat-menu li {
+  border-radius: 15px;
+  margin-bottom: 10px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.new-chat-menu li.selected {
+  background-color: $accent-color;
+  color: #fff;
+}
+
+.new-chat-menu li:hover {
+  background-color: #f0f0f0;
+}
+
+#create-chat-button {
+  background-color: $accent-color;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 10px;
+  color: #000000;
+  margin-top: 20px;
+  margin-left: 45px;
+}
+
+#create-chat-button:hover {
+  background-color: $button-after;
+}
