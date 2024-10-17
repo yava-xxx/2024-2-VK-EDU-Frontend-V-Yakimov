@@ -1,8 +1,7 @@
-import { userData } from './class/default_users.js';
-import { chatData } from './class/default_chats.js';
+import { userData } from './class/users_init.js';
+import { chatData } from './class/chats_init.js';
 
 userData.loadFromLocalStorage();
-chatData.loadFromLocalStorage();
 
 const loginForm = document.getElementById('login-form');
 const errorMessage = document.getElementById('error-message');
@@ -15,11 +14,10 @@ loginForm.addEventListener('submit', (e) => {
     if (user && user.password === password) {
         localStorage.setItem('currentUserId', user.id);
         window.location.href = 'messages_page/messenger.html';
-    } else {
-        errorMessage.textContent = 'Такого пользователя нет в базе!';
-        errorMessage.style.opacity = 1;
-        setTimeout(() => {
-            errorMessage.style.opacity = 0;
-        }, 3000);
     }
+    errorMessage.textContent = 'Такого пользователя нет в базе!';
+    errorMessage.style.opacity = 1;
+    setTimeout(() => {
+        errorMessage.style.opacity = 0;
+    }, 3000);
 });

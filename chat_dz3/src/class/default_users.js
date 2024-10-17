@@ -1,13 +1,7 @@
-import { UserData } from './users.js';
+const DEFAULT_USERS = [
+    { lastName: 'Иванов', firstName: 'Иван', patronymic: 'Иванович', nickname: 'ivan_ivanov', password: 'password123', about: 'Hello, I am Ivan!' },
+    { lastName: 'Петров', firstName: 'Петр', patronymic: 'Петрович', nickname: 'petr_petrov', password: 'password456', about: 'Hello, I am Petr!' },
+    { lastName: 'Баранников', firstName: 'Роман', patronymic: 'Романович', nickname: 'rbarannikov', password: 'roman', about: 'Hello, I am Roma!' }
+];
 
-let userData;
-if (!localStorage.getItem('userData')) {
-    userData = new UserData();
-    userData.addUser ('1', 'Иванов', 'Иван', 'Иванович', 'ivan_ivanov', 'password123', 'Hello, I am Ivan!');
-    userData.addUser ('2', 'Петров', 'Петр', 'Петрович', 'petr_petrov', 'password456', 'Hello, I am Petr!');
-    userData.addUser ('3', 'Баранников', 'Роман', 'Романович', 'rbarannikov', 'roman', 'Hello, I am Roma!');
-} else {
-    userData = new UserData();
-    userData.loadFromLocalStorage();
-}
-export { userData };
+export { DEFAULT_USERS };

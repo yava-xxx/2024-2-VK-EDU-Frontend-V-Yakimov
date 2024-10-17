@@ -1,10 +1,14 @@
+import {StorageManager} from "./storage";
+
 class UserData {
     constructor() {
         this.users = {};
+        this.storageManager = new StorageManager('userData');
         this.loadFromLocalStorage();
     }
 
-    addUser(id, lastName, firstName, patronymic, nickname, password, about) {
+    addUser({lastName, firstName, patronymic, nickname, password, about}) {
+        const id = (Object.keys(this.users).length + 1).toString();
         this.users[id] = {
             id,
             lastName,
@@ -26,14 +30,13 @@ class UserData {
     }
 
     saveToLocalStorage() {
-        localStorage.setItem('userData', JSON.stringify(this.users));
+        this.storageManager.save(this.users);
     }
 
     loadFromLocalStorage() {
-        const storedData = localStorage.getItem('userData');
-        if (storedData) {
-            this.users = JSON.parse(storedData);
-        }
+        const storedData = this.storageManager.load();
+        if (storedData)
+            this.users = storedData;
     }
 
     getUserByNickname(nickname) {

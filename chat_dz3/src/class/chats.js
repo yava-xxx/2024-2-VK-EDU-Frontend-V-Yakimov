@@ -1,11 +1,15 @@
+import {StorageManager} from "./storage.js";
+
 export class ChatData {
     constructor() {
         this.chats = [];
+        this.storageManager = new StorageManager('chatData');
         this.loadFromLocalStorage();
     }
 
     // Метод для добавления нового чата
-    addChat(id) {
+    addChat() {
+        const id = (this.chats.length + 1).toString();
         const chat = {
             id: id,
             title: '',
@@ -18,6 +22,7 @@ export class ChatData {
 
     // Метод для получения чата по его id
     getChat(id) {
+        // return this.chats.find(chat => chat.id === id) || null;
         return this.chats.find(chat => chat.id === id) || null;
     }
 
@@ -46,18 +51,19 @@ export class ChatData {
         }
     }
 
-    // Метод для сохранения данных в local storage
-    saveToLocalStorage() {
-        localStorage.setItem('chatData', JSON.stringify(this.chats));
+    getChatsForUser (userId) {
+        return this.chats.filter(chat => chat.users.includes(Number(userId)));
     }
 
-    // Метод для загрузки данных из local storage
+    // Метод для сохранения данных в local storage
+    saveToLocalStorage() {
+        this.storageManager.save(this.chats);
+    }
+
     loadFromLocalStorage() {
-        const storedChats = localStorage.getItem('chatData');
+        const storedChats = this.storageManager.load();
         if (storedChats) {
-            this.chats = JSON.parse(storedChats);
-        } else {
-            this.chats = []; // Если данных нет в local storage, установите this.chats в пустой массив
+            this.chats = storedChats;
         }
     }
 }

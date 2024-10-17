@@ -1,22 +1,21 @@
-import { chatData } from '../class/chats.js';
-import { userData } from '../class/default_users.js';
-import { GetChatName } from '../utils.js';
+import { chatData } from '../class/chats_init.js';
+import { userData } from '../class/users_init.js';
+import { getChatName } from '../utils.js';
+import { generateUniqueId } from '../utils.js';
 
 document.addEventListener('DOMContentLoaded', function () {
     const messages = document.getElementById('messages');
     const messageForm = document.getElementById('messageForm');
     const messageInput = document.getElementById('messageInput');
 
-    chatData.loadFromLocalStorage();
     userData.loadFromLocalStorage();
 
-
-    let currentChatId = parseInt(window.location.search.split('?chatId=')[1]);
+    let currentChatId = window.location.search.split('?chatId=')[1];
     let userId = parseInt(localStorage.getItem('currentUserId'));
-    let currentChat = chatData.getChat(currentChatId);
 
+    let currentChat = chatData.getChat(currentChatId);
     const partnerNameElement = document.getElementById('partner-name');
-    partnerNameElement.textContent = GetChatName(currentChat);
+    partnerNameElement.textContent = getChatName(currentChat);
 
     const addMessage = (message, status) => {
         const messageData = {
@@ -63,11 +62,6 @@ document.addEventListener('DOMContentLoaded', function () {
             chatData.saveToLocalStorage();
         }
     };
-
-
-    const generateUniqueId = () => {
-        return Math.floor(Math.random() * 1000000).toString();
-    }
 
     const sendMessage = (messageInput) => {
         const message = messageInput.value.trim().replace(/</g,"<").replace(/>/g,">").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/'/g,"&apos;");

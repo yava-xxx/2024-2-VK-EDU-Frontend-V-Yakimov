@@ -1,8 +1,9 @@
-import { chatData } from '../class/chats.js';
-import { userData } from '../class/default_users.js';
-import {areArraysEqual} from "../utils";
+import { chatData } from '../class/chats_init.js';
+import { userData } from '../class/users_init.js';
+import {areArraysEqual, getCurrentUserId} from "../utils";
 
-document.addEventListener('DOMContentLoaded', function() {
+
+let createNewChat = function(){
     const newChatButton = document.querySelector('.new-chat-button');
     const newChatMenu = document.createElement('div');
     newChatMenu.classList.add('new-chat-menu');
@@ -42,17 +43,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     newChatButton.addEventListener('click', () => {
-        if (newChatMenu.style.display === 'block') {
-            newChatMenu.style.display = 'none';
-        } else {
-            newChatMenu.style.display = 'block';
-        }
+        newChatMenu.style.display = newChatMenu.style.display === 'block' ? 'none' : 'block';
     });
 
     document.getElementById('create-chat-button').addEventListener('click', () => {
         const chatTitle = document.getElementById('chat-title-input').value;
         const selectedUsers = Array.from(userList.children).filter(li => li.classList.contains('selected'));
-        const currentUserId = Number(localStorage.getItem('currentUserId'));
+        const currentUserId = getCurrentUserId();
 
         const newChatUsers = selectedUsers.map(li => {
             if (li instanceof HTMLElement) {
@@ -74,11 +71,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         let newChatId = chatData.chats.length + 1;
         let newChat = chatData.addChat(newChatId);
-            newChat.title = chatTitle;
-            newChat.users = newChatUsers;
-            chatData.saveToLocalStorage();
-            window.location.href = `../chat_page/chat.html?chatId=${newChatId}`;
+        newChat.title = chatTitle;
+        newChat.users = newChatUsers;
+        chatData.saveToLocalStorage();
+        window.location.href = `../chat_page/chat.html?chatId=${newChatId}`;
 
     });
 
-});
+}
+
+document.addEventListener('DOMContentLoaded', createNewChat);

@@ -1,10 +1,23 @@
-import {userData} from "./class/default_users";
+import { userData } from './class/users_init.js';
 
-export const GetChatName = (chat) => {
-    const currentUserId = Number(localStorage.getItem('currentUserId'));
+export const getChatName = (chat) => {
+    const currentUserId = getCurrentUserId();
     const otherUsers = chat.users.filter(userId => userId !== currentUserId);
     const chatUsers = otherUsers.map(userId => userData.getUser(userId));
     return chat.title || chatUsers.map(user => `${user.lastName} ${user.firstName}`).join(', ');
+}
+
+export const getCurrentUser  = (currentUserId) => {
+    currentUserId = getCurrentUserId();
+    return userData.getUser(currentUserId);
+};
+
+export const getCurrentUserId = () => {
+    return Number(localStorage.getItem('currentUserId') ?? 0);
+}
+
+export const generateUniqueId = () => {
+    return Math.floor(Math.random() * 1000000).toString();
 }
 
 export const getRelativeDate = (dateString) =>{
