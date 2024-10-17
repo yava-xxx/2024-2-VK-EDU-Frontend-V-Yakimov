@@ -1,7 +1,8 @@
 import {chatData} from '../class/chats_init.js';
 import { userData } from '../class/users_init.js';
-import {getChatName} from "../utils";
-import {getRelativeDate, getCurrentUser, getCurrentUserId} from "../utils";
+import {getChatName, getRelativeDate, getCurrentUser, getCurrentUserId, checkLocalStorageAndRedirect} from "../utils";
+
+checkLocalStorageAndRedirect();
 
 let currentUserId = getCurrentUserId();
 const currentUser = getCurrentUser(currentUserId);
