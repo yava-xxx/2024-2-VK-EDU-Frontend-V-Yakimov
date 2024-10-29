@@ -1,4 +1,5 @@
-import { userData } from './class/users_init.js';
+import {userData} from './class/users.js';
+import {loadFromLocalStorage} from './class/storage.js';
 
 export const getChatName = (chat) => {
     const currentUserId = getCurrentUserId();
@@ -13,7 +14,7 @@ export const getCurrentUser  = (currentUserId) => {
 };
 
 export const getCurrentUserId = () => {
-    return Number(localStorage.getItem('currentUserId') ?? 0);
+    return Number(loadFromLocalStorage('currentUserId') ?? 0);
 }
 
 export const generateUniqueId = () => {

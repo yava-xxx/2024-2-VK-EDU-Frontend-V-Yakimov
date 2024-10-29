@@ -1,10 +1,8 @@
-import {StorageManager} from "./storage.js";
+import {initChatData} from "./chats_init";
 
 export class ChatData {
     constructor() {
         this.chats = [];
-        this.storageManager = new StorageManager('chatData');
-        this.loadFromLocalStorage();
     }
 
     // Метод для добавления нового чата
@@ -22,10 +20,8 @@ export class ChatData {
 
     // Метод для получения чата по его id
     getChat(id) {
-        // return this.chats.find(chat => chat.id === id) || null;
         return this.chats.find(chat => chat.id === id) || null;
     }
-
 
     // Метод для добавления нового сообщения в чат
     addMessage(chatId, message) {
@@ -51,22 +47,11 @@ export class ChatData {
         }
     }
 
-    getChatsForUser (userId) {
+    getChatsForUser(userId) {
         return this.chats.filter(chat => chat.users.includes(Number(userId)));
-    }
-
-    // Метод для сохранения данных в local storage
-    saveToLocalStorage() {
-        this.storageManager.save(this.chats);
-    }
-
-    loadFromLocalStorage() {
-        const storedChats = this.storageManager.load();
-        if (storedChats) {
-            this.chats = storedChats;
-        }
     }
 }
 
-const chatData = new ChatData();
+const chatData = initChatData();
+
 export {chatData};

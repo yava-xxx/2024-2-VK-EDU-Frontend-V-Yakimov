@@ -1,7 +1,7 @@
-import {chatData} from '../class/chats_init.js';
-import { userData } from '../class/users_init.js';
-import {getChatName} from "../utils";
-import {getRelativeDate, getCurrentUser, getCurrentUserId} from "../utils";
+import {chatData} from '../class/chats.js';
+import {userData} from '../class/users.js';
+import {getChatName, getRelativeDate, getCurrentUser, getCurrentUserId} from "../utils";
+import {saveChatData} from '../class/storage.js';
 
 let currentUserId = getCurrentUserId();
 const currentUser = getCurrentUser(currentUserId);
@@ -63,7 +63,7 @@ if (userChats.length > 0) {
             const confirmDelete = confirm('Вы точно хотите удалить данный чат?');
             if (confirmDelete) {
                 chatData.chats = chatData.chats.filter(c => c.id !== chatId);
-                chatData.saveToLocalStorage();
+                saveChatData(chatData);
                 chatElement.remove();
             }
         };

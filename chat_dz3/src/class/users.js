@@ -1,10 +1,8 @@
-import {StorageManager} from "./storage";
+import {initUserData} from "./users_init";
 
-class UserData {
+export class UserData {
     constructor() {
         this.users = {};
-        this.storageManager = new StorageManager('userData');
-        this.loadFromLocalStorage();
     }
 
     addUser({lastName, firstName, patronymic, nickname, password, about}) {
@@ -18,7 +16,6 @@ class UserData {
             password,
             about
         };
-        this.saveToLocalStorage();
     }
 
     getUser(id) {
@@ -27,16 +24,6 @@ class UserData {
 
     getAllUsers() {
         return Object.values(this.users);
-    }
-
-    saveToLocalStorage() {
-        this.storageManager.save(this.users);
-    }
-
-    loadFromLocalStorage() {
-        const storedData = this.storageManager.load();
-        if (storedData)
-            this.users = storedData;
     }
 
     getUserByNickname(nickname) {
@@ -49,4 +36,6 @@ class UserData {
     }
 }
 
-export { UserData };
+const userData = initUserData();
+
+export {userData};

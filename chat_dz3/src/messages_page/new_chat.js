@@ -1,9 +1,10 @@
-import { chatData } from '../class/chats_init.js';
-import { userData } from '../class/users_init.js';
+import { chatData } from '../class/chats.js';
+import { userData } from '../class/users.js';
 import {areArraysEqual, getCurrentUserId} from "../utils";
+import {saveChatData} from "../class/storage";
 
 
-let createNewChat = function(){
+const createNewChat = () => {
     const newChatButton = document.querySelector('.new-chat-button');
     const newChatMenu = document.createElement('div');
     newChatMenu.classList.add('new-chat-menu');
@@ -73,7 +74,7 @@ let createNewChat = function(){
         let newChat = chatData.addChat(newChatId);
         newChat.title = chatTitle;
         newChat.users = newChatUsers;
-        chatData.saveToLocalStorage();
+        saveChatData(chatData);
         window.location.href = `../chat_page/chat.html?chatId=${newChatId}`;
 
     });
