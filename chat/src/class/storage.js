@@ -1,16 +1,34 @@
-class StorageManager {
-    constructor(key) {
-        this.key = key;
-    }
-
-    save(data) {
-        localStorage.setItem(this.key, JSON.stringify(data));
-    }
-
-    load() {
-        const storedData = localStorage.getItem(this.key);
-        return storedData ? JSON.parse(storedData) : null;
-    }
+const saveToLocalStorage = (data, key) => {
+    localStorage.setItem(key, JSON.stringify(data));
 }
 
-export { StorageManager };
+const loadFromLocalStorage = (key) => {
+    const storedData = localStorage.getItem(key);
+    return storedData ? JSON.parse(storedData) : null;
+}
+
+const saveChatData = (chatData) => {
+    saveToLocalStorage(chatData.chats, 'chatData');
+}
+
+const loadChatData = () => {
+    return loadFromLocalStorage('chatData');
+}
+
+const saveUserData = (userData) => {
+    saveToLocalStorage(userData.users, 'userData');
+}
+
+const loadUserData = () => {
+    return loadFromLocalStorage('userData');
+}
+
+
+export {
+    saveToLocalStorage,
+    loadFromLocalStorage,
+    saveChatData,
+    loadChatData,
+    saveUserData,
+    loadUserData
+};

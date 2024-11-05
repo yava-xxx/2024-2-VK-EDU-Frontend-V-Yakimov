@@ -1,16 +1,20 @@
-import { UserData } from './users.js';
-import { DEFAULT_USERS } from './default_users.js';
+import {UserData} from './users.js';
+import {DEFAULT_USERS} from './default_users.js';
+import {loadUserData, saveUserData} from './storage.js';
 
-let userData;
+const initUserData = () => {
+    const userData = new UserData();
 
-if (!localStorage.getItem('userData')) {
-    userData = new UserData();
-    DEFAULT_USERS.forEach(user => {
-        userData.addUser (user);
-    });
-} else {
-    userData = new UserData();
-    userData.loadFromLocalStorage();
-}
+    if (!loadUserData()) {
+        DEFAULT_USERS.forEach(user => {
+            userData.addUser(user);
+        });
+        saveUserData(userData);
+    } else {
+        userData.users = loadUserData() || [];
+    }
 
-export { userData };
+    return userData;
+};
+
+export {initUserData};

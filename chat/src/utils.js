@@ -1,12 +1,5 @@
-import {userData} from './class/users_init.js';
-
-export const checkLocalStorageAndRedirect = () => {
-    const currentUserId = localStorage.getItem('currentUserId');
-    // Если данных нет, перенаправляем на index.html
-    if (!currentUserId) {
-        window.location.href = '../index.html';
-    }
-}
+import {userData} from './class/users.js';
+import {loadFromLocalStorage} from './class/storage.js';
 
 export const getChatName = (chat) => {
     const currentUserId = getCurrentUserId();
@@ -15,7 +8,7 @@ export const getChatName = (chat) => {
     return chat.title || chatUsers.map(user => `${user.lastName} ${user.firstName}`).join(', ');
 }
 
-export const getCurrentUser = (currentUserId) => {
+export const getCurrentUser  = (currentUserId) => {
     currentUserId = getCurrentUserId();
     return userData.getUser(currentUserId);
 };
@@ -28,7 +21,7 @@ export const generateUniqueId = () => {
     return Math.floor(Math.random() * 1000000).toString();
 }
 
-export const getRelativeDate = (dateString) => {
+export const getRelativeDate = (dateString) =>{
     const currentDate = new Date();
     const messageDate = new Date(dateString);
     const diffInMilliseconds = currentDate.getTime() - messageDate.getTime();
@@ -58,7 +51,7 @@ export const getRelativeDate = (dateString) => {
     }
 }
 
-const getYearString = (years) => {
+const getYearString = (years) =>{
     if (years === 1) return 'год';
     if (years < 5) return 'года';
     return 'лет';

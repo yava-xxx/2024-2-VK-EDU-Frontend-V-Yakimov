@@ -1,8 +1,7 @@
-import { chatData } from '../class/chats_init.js';
-import { userData } from '../class/users_init.js';
-import { getChatName, checkLocalStorageAndRedirect, generateUniqueId } from '../utils.js';
-
-checkLocalStorageAndRedirect();
+import {chatData} from '../class/chats.js';
+import {userData} from '../class/users.js';
+import {generateUniqueId, getChatName, getCurrentUserId} from '../utils.js';
+import {loadUserData, saveChatData} from '../class/storage.js';
 
 document.addEventListener('DOMContentLoaded', function () {
     const messages = document.getElementById('messages');
