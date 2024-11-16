@@ -1,0 +1,715 @@
+@use "style";
+
+/* ------------ PAGE ------------ */
+
+.messagesPage {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: style.$dark-gray;
+
+  &.darkMode {
+    background-color: style.$white-pink;
+    transition: .8s ease-in-out;
+
+    .menu, .messagesPage {
+      background-image: linear-gradient(style.$light-pink, style.$pink);
+      transition: .8s ease-in-out;
+    }
+
+    .messagesPage_header {
+      background-color: style.$light-pink;
+    }
+
+    .chat {
+      background: rgba(255, 79, 158, 0.38);
+      backdrop-filter: blur(10px);
+
+      &:hover {
+        background: rgba(140, 52, 93, 0.8);
+      }
+    }
+
+    .searchInput {
+      background: rgba(255, 79, 158, 0.73);
+      backdrop-filter: blur(10px);
+    }
+
+    .searchInput::placeholder {
+      color: style.$black;
+      transition: .8s ease-in-out;
+    }
+
+    .backbutton, .menuButton, .findButton, .fullName, .username, .footerMessages, .menuList li {
+      transition: .8s ease-in-out;
+      color: style.$black;
+    }
+
+    .searchInput, .chatName, .chatLastMessage {
+      color: style.$black;
+    }
+
+    .menuList li:hover {
+      background: rgba(33, 33, 33, 0.48);
+    }
+
+    .newChatButton {
+      background: rgba(255, 79, 158, 0.8);
+      color: style.$black;
+
+      &:hover {
+        background: rgba(140, 52, 93, 0.8);
+      }
+    }
+
+    .newChatMenu {
+      background-color: style.$white-pink;
+    }
+
+    .userSelectInput {
+      background-color: style.$white-pink;
+      color: style.$black;
+    }
+
+    .userSelect ul {
+      background-color: style.$white-pink;
+      color: style.$black;
+    }
+
+    .userSelect li {
+      &:hover {
+        background-color: style.$light-pink;
+      }
+    }
+
+    .userSelect li.selected {
+      background-color: style.$dark-pink2;
+      color: #fff;
+    }
+
+    .newChatMenu input[type="text"] {
+      background-color: style.$white-pink;
+      color: style.$black;
+
+      &::placeholder {
+        color: style.$black;
+      }
+    }
+
+    .buttonNewChat {
+      background-color: rgb(255, 79, 158);
+      color: style.$black;
+
+      &:hover {
+        background: rgba(140, 52, 93, 0.8);
+      }
+    }
+
+
+  }
+}
+
+/* ------------ HEADER ------------ */
+
+.messagesPage header {
+  display: flex;
+  position: relative;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  height: 80px;
+  width: 100%;
+  background-color: style.$dark-pink;
+  backdrop-filter: blur(10px);
+  align-items: center;
+  justify-content: center;
+  transition: .8s ease-in-out;
+}
+
+.searchField {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  margin-right: 10px;
+
+  padding-left: 100px
+}
+
+.searchInput {
+  flex-grow: 1;
+  min-width: 0;
+  padding: 10px 10px 10px 30px;
+  height: 50px;
+  background: rgba(34, 34, 34, 0.75);
+  backdrop-filter: blur(10px);
+  color: style.$white;
+  border-radius: 25px;
+  border: none;
+  transition: .8s ease-in-out;
+}
+
+.searchInput::placeholder {
+  font-weight: bold;
+  color: style.$white;
+
+}
+
+.backbutton, .menuButton {
+  color: style.$white;
+  top: 50%;
+  transform: translateY(-50%) translateX(+55px);
+  width: 50px;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  position: absolute;
+  left: 0;
+  font-size: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.3s;
+
+  &:hover {
+    border: none;
+    background: none;
+  }
+}
+
+.menuButton {
+  transform: translateY(-50%) translateX(+5px);
+}
+
+
+.findButton {
+  flex: auto;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  position: absolute;
+  top: 50%;
+  left: auto;
+  right: 10px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: style.$white;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+
+  &:hover {
+    border: none;
+    background: none;
+  }
+
+  transition: .8s ease-in-out;
+}
+
+/* ------------ MENU SINGLE ITEM ------------ */
+
+.menu {
+  transition: transform 0.5s, opacity 0.5s;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 100vh;
+  background-image: linear-gradient(style.$dark-pink, style.$super-dark-pik);
+  padding: 20px;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  transform: translateX(-100%);
+  opacity: 0;
+  z-index: 1000;
+}
+
+.menuOpen {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.menuClosed {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.avatar {
+  top: 10px;
+  transform: translateX(50%);
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  right: 50%;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+
+.userDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.fullName {
+  transition: .8s ease-in-out;
+  text-align: center;
+  position: absolute;
+  top: 90px;
+  right: 50%;
+  transform: translateX(50%);
+  font-size: 18px;
+  color: white;
+}
+
+.username {
+  transition: .8s ease-in-out;
+  position: absolute;
+  right: 50%;
+  transform: translateX(50%);
+  top: 145px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.menuList {
+  top: 30%;
+  text-align: center;
+  position: relative;
+  right: 50%;
+  transform: translateX(50%);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menuList li {
+  transition: background 0.2s, .8s ease-in-out;
+  padding: 15px 0;
+  color: white;
+  cursor: pointer;
+}
+
+.menuList li:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.darkmodeMessages {
+  position: absolute;
+  padding: 0;
+  bottom: 120px;
+  right: 50%;
+
+  transform: translateX(50%) scale(0.4);
+}
+
+.footerMessages {
+  position: absolute;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  transition: .8s ease-in-out;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  bottom: 0;
+  color: white;
+  font-size: 12px;
+  height: 150px;
+  width: 100%;
+}
+
+.logoMessages {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  right: 50%;
+  transform: translate(+50%, 50%);
+}
+
+.footerTextMessages {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  bottom: 0;
+  transform: translateY(-50%);
+}
+
+/* ------------ MAIN ------------ */
+
+.messagesMain {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  transition: .8s ease-in-out;
+  border-radius: 0;
+}
+
+.chatsContainer {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+}
+
+.chats {
+  list-style: none;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: style.$light-gray;
+    border-radius: 10px;
+  }
+}
+
+.chat {
+  margin-bottom: 1px;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: rgba(255, 79, 158, 0.22);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+  border: none;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background: style.$light-pink;
+  }
+}
+
+.chatInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.chatDetails {
+  justify-content: flex-start;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.chatName {
+  position: absolute;
+  top: 5px;
+  left: 75px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+
+.chatAvatar {
+  position: relative;
+  left: 5px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  bottom: 3px;
+
+  &:hover {
+    border: 1px solid style.$pink;
+  }
+}
+
+.chatLastMessage {
+  top: 5px;
+  padding-right: 60px;
+  position: relative;
+  left: 15px;
+  font-size: 16px;
+  color: style.$white;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: calc(50vw - 10vw);
+  flex: 1;
+}
+
+.messageStatusIcon {
+  position: absolute;
+  right: 40px;
+  top: 27px;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+}
+
+.messageStatusSent {
+  color: style.$pink;
+}
+
+.messageStatusReceived {
+  color: style.$white;
+}
+
+.chatTimestamp {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: relative;
+  height: 100%;
+}
+
+.time {
+  font-size: 12px;
+  color: style.$white;
+  background: style.$gray;
+  padding: 5px;
+  border-radius: 15px;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.deleteButton {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  top: 20px;
+  left: auto;
+  right: -10px;
+  width: 30px;
+  height: 30px;
+  color: style.$pink;
+
+  &:hover {
+    border: none;
+    color: style.$pink;
+    box-shadow: none;
+  }
+}
+
+/* ------------ BUTTON CREATE CHAT ------------ */
+
+.divNewChat {
+  height: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  right: 0;
+  position: relative;
+}
+
+.newChatButton {
+
+  background: rgba(255, 79, 158, 0.6);
+  position: relative;
+  bottom: 50px;
+  flex-direction: column;
+  left: 92%;
+  right: 0;
+  color: style.$white;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s;
+
+  &:hover {
+    background: style.$light-pink;
+  }
+}
+
+.newChatMenu {
+  margin-bottom: 50px;
+  position: absolute;
+  bottom: 10px;
+  margin-left: 20%;
+  right: 10px;
+  max-width: 250px;
+  background-color: style.$new-gray;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+
+}
+
+.userSelect {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.userSelectInput {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 15px;
+  background-color: style.$new-gray;
+  color: style.$white;
+  cursor: pointer;
+
+}
+
+.userSelect ul {
+  max-height: 120px;
+  overflow-y: auto;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: style.$new-gray;
+  color: style.$white;
+  border-radius: 10px;
+  z-index: 1000;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: style.$light-gray;
+    border-radius: 10px;
+  }
+}
+
+.userSelect li {
+  border-radius: 15px;
+  margin-bottom: 5px;
+  padding: 10px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: style.$light-pink;
+  }
+}
+
+.userSelect li.selected {
+  background-color: style.$dark-pink2;
+  color: #fff;
+}
+
+.newChatMenu input[type="text"] {
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 15px;
+  background-color: style.$new-gray;
+  color: style.$white;
+
+  &::placeholder {
+    color: style.$gray;
+  }
+}
+
+.buttonNewChat {
+  margin-top: 15px;
+  width: 250px;
+  position: relative;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgba(255, 79, 158, 0.6);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s;
+
+  &:hover {
+    background-color: style.$light-pink;
+  }
+}
+
+/* ------------ MOBILE PAGE ------------ */
+@media (max-width: 699px) {
+  .chatLastMessage {
+    max-width: calc(100vw - 10vw - 60px);
+  }
+}
+
+@media (max-width: 550px) {
+  .searchField {
+    padding-left: 120px;
+  }
+  .searchInput {
+    width: 80%;
+  }
+  @media (max-width: 350px) {
+    .chatLastMessage {
+      max-width: 150px;
+    }
+    .chatTimestamp, .newChatMenu, .searchInput {
+      transform: scale(0.8);
+    }
+    .findButton {
+      right: 10%;
+    }
+    .chatInfo {
+      transform: scale(0.8) translateX(-15%);
+    }
+    .menu {
+      width: 250px;
+    }
+    @media (max-width: 300px) {
+      .chatTimestamp {
+        transform: scale(0.7);
+      }
+      .chatInfo {
+        transform: scale(0.7) translateX(-25%);
+      }
+      .newChatMenu {
+        transform: scale(0.7) translateX(20%) translateY(20%);
+      }
+    }
+    @media (max-width: 270px) {
+      .newChatMenu {
+        transform: scale(0.6) translateX(30%) translateY(30%);
+      }
+      .menu {
+        width: 200px;
+      }
+      .chatTimestamp {
+        transform: scale(0.6);
+
+      }
+      .chatInfo {
+        transform: scale(0.6) translateX(-40%);
+      }
+      .chatName {
+        padding-right: 60px;
+      }
+      .chatLastMessage {
+        display: none;
+      }
+    }
+  }
+}

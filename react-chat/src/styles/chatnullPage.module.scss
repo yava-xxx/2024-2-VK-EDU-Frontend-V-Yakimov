@@ -1,0 +1,36 @@
+@use "style";
+
+.chatNullPage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: style.$gray;
+
+  &.darkMode {
+    background-color: rgb(250, 199, 217);
+    .string {
+      color: black;
+      background: rgba(124, 122, 122, 0.33);
+      border: 1px solid rgba(70, 70, 70, 0.2);
+    }
+  }
+}
+
+.string {
+  color: white;
+  position: relative;
+  padding: 10px;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: background 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0);
+    transform: scale(1.05);
+  }
+}

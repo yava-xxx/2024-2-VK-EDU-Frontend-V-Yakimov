@@ -1,0 +1,431 @@
+@use "style";
+
+/* ------------ PAGE ------------ */
+
+.chatContainer{
+  background-color: style.$dark-gray;
+  background-image: url("./svg/background2.svg");
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  &.darkMode{
+      background-color: style.$white-pink;
+      background-image: url("./svg/background1.svg");
+
+    .chatHeader {
+      color: style.$black;
+      background: rgba(121, 38, 87, 0.3);
+      backdrop-filter: blur(10px);
+    }
+    .partnerName, .messageStatusIcon{
+      color: style.$dark-pink;
+    }
+    .partnerStatus{
+      color: style.$dark-gray;
+    }
+    .moreButton, .backbuttonChat, .phoneButton, .buttonSubmit, .buttonVoice, .buttonEmoji, .buttonAttach{
+      color: style.$dark-gray;
+      &:hover{
+        color: style.$dark-pink2;
+      }
+    }
+    .sent .messageContent {
+      color: style.$black;
+      background: rgba(166, 60, 99, 0.7);
+      backdrop-filter: blur(10px);
+    }
+    .received .messageContent {
+      color: style.$black;
+      background-color: rgba(110, 0, 56, 0.7);
+      backdrop-filter: blur(10px);
+    }
+    .messageText, .timestamp {
+      color: style.$black;
+    }
+    .messageStatusIcon {
+      color: style.$dark-pink;
+    }
+    .inputContain {
+      background: rgba(255, 255, 255, 0.5);
+
+      backdrop-filter: blur(5px);
+      color: style.$black;
+      &::placeholder{
+        color: style.$black;
+      }
+    }
+    .deleteButton {
+      color: style.$dark-pink;
+      &:hover{
+        color: style.$pink;
+      }
+    }
+  }
+}
+
+
+/* ------------ HEADER ------------ */
+.chatHeader{
+  color: style.$white;
+  background: rgba(239, 54, 157, 0.26);
+  backdrop-filter: blur(10px);
+  display: flex;
+  position: relative;
+  z-index: 10;
+  top: 0;
+  width: 100%;
+  height: 80px;
+}
+
+.partnerName{
+  position: absolute;
+  left: 80px;
+  font-size: 22px;
+  font-weight: bold;
+  color: style.$light-pink;
+  top:0;
+  transform: translateY(50%);
+}
+.partnerStatus{
+  color: style.$white;
+  display: flex;
+  position: absolute;
+  left: 80px;
+  bottom: 0;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(-50%);
+}
+.backbuttonChat{
+  padding: 0;
+  margin: 0;
+  color: style.$gray;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  left: 10px;
+  transform: translateY(50%);
+  right: 0;
+  background: none;
+  &:hover{
+    background: none;
+    border: none;
+  }
+}
+.phoneButton{
+  color: style.$gray;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 25px;
+  height: 40px;
+  position: absolute;
+  left:auto;
+  top:50%;
+  transform: translateY(-50%);
+  right: 40px;
+  background: none;
+}
+.moreButton {
+  color: style.$gray;
+  background: transparent;
+
+  border: none;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  left:auto;
+  top:50%;
+  transform: translateY(-50%);
+  right: 0;
+  background: none;
+}
+
+/* ------------ BUTTONS ------------ */
+.moreButton, .backbuttonChat, .buttonAttach, .buttonEmoji, .buttonSubmit, .buttonVoice, .phoneButton {
+  &:hover {
+    color: style.$light-pink;
+    background: none;
+    border: none;
+    box-shadow: none;
+  }
+}
+
+/* ------------ MAIN ------------ */
+.chatMain{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  z-index: 5;
+}
+
+.messages {
+  flex:1;
+  overflow-y: auto;
+  z-index: 20;
+  color: style.$white;
+  list-style: none;
+  flex: 1;
+  height: calc(100vh);
+  overflow-y: auto;
+  margin-bottom: 0;
+  z-index: 7;
+  position: relative;
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: style.$light-gray;
+    border-radius: 10px;
+  }
+}
+.message {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 10px;
+  background-color: transparent;
+}
+
+.sent {
+  justify-content: flex-end;
+}
+
+.received {
+  justify-content: flex-start;
+}
+
+.messageContent {
+  position: relative;
+  left: 18px;
+  border-radius: 20px;
+  padding: 10px;
+  max-width: 70%;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.sent .messageContent {
+
+  background:  #EB5284;
+  backdrop-filter: blur(5px);
+  color: style.$white;
+}
+
+.received .messageContent {
+  background-color: #F19CBB;
+  backdrop-filter: blur(5px);
+}
+
+.messageText {
+  color: white;
+}
+
+.timestamp {
+  position: relative;
+  font-size: 0.8em;
+  color: white;
+  left: 22px;
+  bottom:0;
+}
+
+.messageStatusIcon {
+  position: relative;
+  bottom: 10px;
+  right: 5px;
+  margin: 0;
+  color: style.$pink;
+}
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-left: 10px;
+  align-self: flex-start;
+}
+
+@keyframes appearFromLeft {
+  0% {
+    opacity: 0;
+    transform: translate(-30px, -20px);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translate(-10px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+.deleteButton {
+  padding: 0;
+  position: absolute;
+  left: -30px;
+  bottom: 3px ;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: style.$white-pink;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: appearFromLeft 0.5s forwards;
+  visibility: hidden;
+  &.receivedLast {
+   bottom: -30px;
+    left: 0;
+  }
+  &:hover{
+    border: none;
+    background: none;
+    box-shadow: none;
+    color: style.$pink;
+  }
+}
+
+.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ------------ FOOTER ------------ */
+
+.chatFooter, .messageForm{
+  overflow-x: hidden;
+  overflow-y: hidden;
+  background: transparent;
+  color: style.$white;
+  display: flex;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+
+  max-height: 145px;
+  min-height: 45px;
+  z-index: 10;
+}
+
+.messageForm{
+  z-index: 9;
+  background-color: transparent;
+  position:relative;
+}
+
+.inputContain {
+  max-height: 140px;
+  min-height: 40px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  font-weight: 600;
+  resize: none;
+  font-size: 16px;
+  width: 99%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin: 5px;
+  padding: 10px 100px 10px 35px;
+  border-radius: 15px;
+  background: rgba(54, 49, 49, 0.54);
+  backdrop-filter: blur(10px);
+  color: style.$white;
+  border: 1px solid style.$pink;
+  transition: height 0.2s ease;
+  scroll-margin-right: 50px;
+  overflow-y: auto;
+
+
+  &::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+.buttonSubmit{
+  flex: 1;
+  position: absolute;
+  bottom: 10px;
+  left: auto;
+  right: -22px;
+  top: auto;
+  color: style.$gray;
+  width: 50px;
+  height: 30px;
+  border: none;
+  background: none;
+}
+
+.attachIco{
+  transform: rotate(45deg);
+}
+
+.buttonAttach {
+  z-index: 50;
+  flex: 1;
+  position: absolute;
+  top: auto;
+  right:auto;
+  bottom: 0;
+  left: 20px;
+  color: style.$gray;
+  width: 30px;
+  height: 50px;
+  border: none;
+  background: none;
+}
+
+.buttonVoice{
+  flex: 1;
+  position: absolute;
+  bottom: 10px;
+  left: auto;
+  right: 30px;
+  top: auto;
+  color: style.$gray;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: none;
+}
+
+.buttonEmoji{
+  flex: 1;
+  position: absolute;
+  top: auto;
+  bottom: 10px;
+  left: auto;
+  right: 60px;
+  color: style.$gray;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: none;
+}
