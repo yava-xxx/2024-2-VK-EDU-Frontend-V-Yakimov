@@ -1,8 +1,5 @@
-import { userData } from './class/users_init.js';
-import { chatData } from './class/chats_init.js';
-
-userData.loadFromLocalStorage();
-chatData.loadFromLocalStorage();
+import { userData } from './class/users.js';
+import { chatData } from './class/chats.js';
 
 const loginForm = document.getElementById('login-form');
 const errorMessage = document.getElementById('error-message');
