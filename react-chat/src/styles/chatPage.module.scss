@@ -4,7 +4,7 @@
 
 .chatContainer{
   background-color: style.$dark-gray;
-  background-image: url("./public/svg/background2.svg");
+  background-image: url("../public/svg/background2.svg");
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -13,7 +13,7 @@
   overflow-x: hidden;
   &.darkMode{
       background-color: style.$white-pink;
-      background-image: url("./public/svg/background1.svg");
+      background-image: url("../public/svg/background1.svg");
 
     .chatHeader {
       color: style.$black;
