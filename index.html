@@ -6,19 +6,47 @@
     <title>Вход</title>
     <link rel="icon" href="./assets/message-Ccfd3PTE.png"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <script type="module" crossorigin src="./assets/main-BhEFdZq7.js"></script>
-  <link rel="modulepreload" crossorigin href="./assets/chats-bC-h7T0w.js">
-  <link rel="stylesheet" crossorigin href="./assets/main-CFtq4jAb.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">.
+  <script type="module" crossorigin src="./assets/main-ozbkcE18.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/chats-kHMLDPK4.js">
+  <link rel="stylesheet" crossorigin href="./assets/main-RXtbZK13.css">
 </head>
 <body class="login-body">
-<form id="login-form" class="login-form">
-    <label for="nickname">Никнейм:</label>
-    <input type="text" id="nickname" name="nickname"><br><br>
-    <label for="password">Пароль:</label>
-    <input type="password" id="password" name="password"><br><br>
-    <div class="error-message" id="error-message"></div>
-    <button type="submit">Войти</button>
-</form>
-<img src="./assets/Logo-BUdQtVFk.png" alt="Logo" class="logo">
+<header>
+    <h1 class="header-title">Chat by Viktor</h1>
+</header>
+<main>
+    <form id="login-form" class="login-form">
+        <label for="nickname">Никнейм:</label>
+        <input type="text" id="nickname" name="nickname"><br><br>
+        <label for="password">Пароль:</label>
+        <input type="password" id="password" name="password"><br><br>
+        <div class="error-message" id="error-message"></div>
+        <button type="submit">Войти</button>
+        <button id="registration-button" class="registration-button">Регистрация</button>
+    </form>
+
+    <div id="registration-form" class="registration-form" style="display: none;">
+        <h3>Регистрация</h3>
+        <label for="reg-nickname">Никнейм:</label>
+        <input type="text" id="reg-nickname" name="reg-nickname"><br><br>
+        <label for="reg-password">Пароль:</label>
+        <input type="password" id="reg-password" name="reg-password"><br><br>
+        <label for="reg-lastname">Фамилия:</label>
+        <input type="text" id="reg-lastname" name="reg-lastname"><br><br>
+        <label for="reg-firstname">Имя:</label>
+        <input type="text" id="reg-firstname" name="reg-firstname"><br><br>
+        <label for="reg-patronymic">Отчество:</label>
+        <input type="text" id="reg-patronymic" name="reg-patronymic"><br><br>
+        <button id="register-button">Зарегистрироваться</button>
+        <div class="error-message" id="registration-error-message"></div>
+    </div>
+    <div id="welcome-message" class="welcome-message" style="display: none;">Добро пожаловать!</div>
+</main>
+<footer>
+    <img src="./assets/Logo-BUdQtVFk.png" alt="Logo" class="logo">
+    <p>Учебный проект VK Frontend</p>
+    <p>2024 Все права защищены.</p>
+</footer>
 </body>
 </html>
