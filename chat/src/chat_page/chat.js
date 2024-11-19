@@ -8,10 +8,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const messageForm = document.getElementById('messageForm');
     const messageInput = document.getElementById('messageInput');
 
-    userData.users = loadUserData() || [];
+    userData.loadFromLocalStorage();
 
     let currentChatId = window.location.search.split('?chatId=')[1];
-    let userId = getCurrentUserId();
+    let userId = parseInt(localStorage.getItem('currentUserId'));
 
     let currentChat = chatData.getChat(currentChatId);
     const partnerNameElement = document.getElementById('partner-name');
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const messageElement = createMessageElement(messageData);
         messages.appendChild(messageElement);
         messages.scrollTop = messages.scrollHeight;
-        saveChatData(chatData);
+        chatData.saveToLocalStorage();
         console.log(localStorage.getItem('chatData'));
     };
 
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
             messageElement.remove();
             const chat = chatData.getChat(currentChatId);
             chat.messages = chat.messages.filter((message) => message.id !== id);
-            saveChatData(chatData);
+            chatData.saveToLocalStorage();
         }, 500);
     };
 
@@ -59,12 +59,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 messages.appendChild(messageElement);
             });
             messages.scrollTop = messages.scrollHeight;
-            saveChatData(chatData);
+            chatData.saveToLocalStorage();
         }
     };
 
     const sendMessage = (messageInput) => {
-        const message = messageInput.value.trim().replace(/</g, "<").replace(/>/g, ">").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
+        const message = messageInput.value.trim().replace(/</g,"<").replace(/>/g,">").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/'/g,"&apos;");
         if (!message) {
             return;
         }
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
         messageInput.setSelectionRange(0, 0);
     }
 
-    const createMessageElement = (message) => {
+    const createMessageElement =(message) =>{
         const messageElement = document.createElement('li');
         messageElement.id = message.id;
         messageElement.classList.add('message', userId === message.userId ? 'sent' : 'received');
@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
         messageInput.scrollTop = messageInput.scrollHeight
     });
 
-    messageInput.addEventListener('keydown', (e) => {
+    messageInput.addEventListener ('keydown', (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
             if (e.shiftKey) {
@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    messageInput.addEventListener('input', () => {
+    messageInput.addEventListener ('input', () => {
         const textarea = messageInput;
         textarea.style.height = 'auto';
         textarea.style.minHeight = '5vh';

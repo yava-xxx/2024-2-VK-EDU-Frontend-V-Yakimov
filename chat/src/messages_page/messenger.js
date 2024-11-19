@@ -63,7 +63,7 @@ if (userChats.length > 0) {
             const confirmDelete = confirm('Вы точно хотите удалить данный чат?');
             if (confirmDelete) {
                 chatData.chats = chatData.chats.filter(c => c.id !== chatId);
-                saveChatData(chatData);
+                chatData.saveToLocalStorage();
                 chatElement.remove();
             }
         };

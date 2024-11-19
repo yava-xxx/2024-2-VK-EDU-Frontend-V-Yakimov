@@ -14,7 +14,7 @@ export const getCurrentUser  = (currentUserId) => {
 };
 
 export const getCurrentUserId = () => {
-    return Number(loadFromLocalStorage('currentUserId') ?? 0);
+    return Number(localStorage.getItem('currentUserId') ?? 0);
 }
 
 export const generateUniqueId = () => {
