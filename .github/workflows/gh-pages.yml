@@ -12,13 +12,13 @@ jobs:
         with:
           node-version: '20'
       - name: Install npm deps
-        working-directory: ./chat
+        working-directory: ./react-chat
         run: npm i
       - name: Build app
-        working-directory: ./chat
+        working-directory: ./react-chat
         run: npm run build
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./chat/src/dist
+          publish_dir: ./react-chat/dist

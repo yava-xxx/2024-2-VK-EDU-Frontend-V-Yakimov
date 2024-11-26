@@ -8,10 +8,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const messageForm = document.getElementById('messageForm');
     const messageInput = document.getElementById('messageInput');
 
-    userData.loadFromLocalStorage();
+    userData.users = loadUserData() || [];
 
     let currentChatId = window.location.search.split('?chatId=')[1];
-    let userId = parseInt(localStorage.getItem('currentUserId'));
+    let userId = getCurrentUserId();
 
     let currentChat = chatData.getChat(currentChatId);
     const partnerNameElement = document.getElementById('partner-name');

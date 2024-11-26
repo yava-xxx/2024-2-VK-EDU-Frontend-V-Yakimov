@@ -1,0 +1,104 @@
+@use "sass:list";
+@use "style";
+
+$animation-times: (4s, 7s, 2.5s, 4.5s, 8s, 3s, 5.3s, 4.7s, 4.1s);
+$scales: (1.0, 1.6, 0.5, 1.2, 2.2, 0.8, 3.2, 1.7, 0.9);
+$left-positions: (0%, 15%, -15%, -34%, -57%, -81%, 37%, 62%, 85%);
+
+.backgroundDark {
+    margin: 0;
+    height: 100vh;
+    font-weight: 100;
+    background: radial-gradient(style.$light-pink, style.$dark-pink);
+    overflow-y: hidden;
+    animation: fadeIn 1s ease-out;
+
+    .light {
+        position: absolute;
+        width: 0;
+        opacity: 0.75;
+        background-color: style.$white;
+        box-shadow: #e9f1f1 0 0 20px 2px;
+        top: 100vh;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+
+    &:has(#hide-checkbox:checked) {
+        background: radial-gradient(style.$light-pink, style.$dark-pink);
+        .light {
+            background-color: style.$white;
+            box-shadow: #e9f1f1 0 0 20px 2px;
+        }
+    }
+
+    // Анимации
+    @for $i from 1 through 9 {
+        .x#{$i} {
+            animation: floatUp list.nth($animation-times, $i) infinite linear;
+            transform: scale(list.nth($scales, $i));
+            left: list.nth($left-positions, $i);
+        }
+    }
+}
+
+.backgroundLight {
+    margin: 0;
+    height: 100vh;
+    font-weight: 100;
+    background: radial-gradient(style.$dark-pink, style.$super-dark-pik);
+    overflow-y: hidden;
+    animation: fadeIn 1s ease-out;
+
+    .light {
+        position: absolute;
+        width: 0;
+        opacity: 0.75;
+        background-color: style.$black;
+        box-shadow: rgba(0, 0, 0, 0.93) 0 0 20px 2px;
+        top: 100vh;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+
+    // Анимации
+    @for $i from 1 through 9 {
+        .x#{$i} {
+            animation: floatUp list.nth($animation-times, $i) infinite linear;
+            transform: scale(list.nth($scales, $i));
+            left: list.nth($left-positions, $i);
+        }
+    }
+}
+
+// Ключевые кадры для анимаций
+@keyframes floatUp {
+    0% { top: 100vh; opacity: 0; }
+    25% { opacity: 1; }
+    50% { top: 0vh; opacity: 0.8; }
+    75% { opacity: 1; }
+    100% { top: -100vh; opacity: 0; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    0% { opacity: 0; }
+    30% { opacity: 1; }
+    80% { opacity: 0.9; }
+    100% { opacity: 0; }
+}
+
+@keyframes finalFade {
+    0% { opacity: 0; }
+    30% { opacity: 1; }
+    80% { opacity: 0.9; }
+    100% { opacity: 1; }
+}
